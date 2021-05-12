@@ -1,6 +1,7 @@
 package net.weirdwired.java.interview.strings;
 
 import org.javatuples.Pair;
+import org.javatuples.Triplet;
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.FromDataPoints;
@@ -22,6 +23,18 @@ public class StringChallengesTest {
                     new Pair<>("abcd", true),
                     new Pair<>("aaaa", false),
                     new Pair<>("한국말이야", true)).toList();
+
+    @DataPoints("string data for comparing equal or one off")
+    public static List<Triplet<String, String, Boolean>> strings2 =
+            Stream.of(
+                    new Triplet<>("abcd", "abcd", true),
+                    new Triplet<>("aaaa", "aaab", true),
+                    new Triplet<>("aaa", "aaab", true),
+                    new Triplet<>("aaa", "aba", true),
+                    new Triplet<>("aaa", "aaaa", true),
+                    new Triplet<>("aaa", "abaa", false),
+                    new Triplet<>("aaa", "aaaaa", false),
+                    new Triplet<>("aaabb", "aaaa", false)).toList();
 
     @Theory
     @DisplayName("Should identify string with unique characters with map")
@@ -61,4 +74,14 @@ public class StringChallengesTest {
         assertThat(new String(result2)).isEqualTo(expected);
     }
 
+    @Theory
+    @DisplayName("Should return true if equal or one off")
+    public void testEqualOrOneOff(@FromDataPoints("string data for comparing equal or one off") Triplet<String, String, Boolean> strings) {
+        // Arrange
+        // Act
+        boolean result = StringChallenges.equalOrOneOff(strings.getValue0(), strings.getValue1());
+
+        // Assert
+        assertThat(result).isEqualTo(strings.getValue2());
+    }
 }
