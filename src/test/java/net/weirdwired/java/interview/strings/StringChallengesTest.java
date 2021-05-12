@@ -1,6 +1,7 @@
 package net.weirdwired.java.interview.strings;
 
 import org.javatuples.Pair;
+import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.FromDataPoints;
 import org.junit.experimental.theories.Theories;
@@ -43,4 +44,21 @@ public class StringChallengesTest {
         // Assert
         assertThat(result).isEqualTo(string.getValue1());
     }
+
+    @Test
+    @DisplayName("Should escape white space with %20")
+    public void testEscapeString() {
+        // Arrange
+        String testString = "  String   with spaces  ";
+        String expected = "%20%20String%20%20%20with%20spaces%20%20";
+
+        // Act
+        char[] result = StringChallenges.escapeString(testString.toCharArray());
+        char[] result2 = StringChallenges.escapeStringWithLoop(testString.toCharArray());
+
+        // Assert
+        assertThat(new String(result)).isEqualTo(expected);
+        assertThat(new String(result2)).isEqualTo(expected);
+    }
+
 }
