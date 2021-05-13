@@ -1,10 +1,8 @@
 package net.weirdwired.java.interview.strings;
 
-import java.sql.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class StringChallenges {
 
@@ -68,6 +66,34 @@ public class StringChallenges {
             }
 
             return index < 0 || shorter.length == longer.length;
+        }
+    }
+
+    public static String shrinkString(String str) {
+        var result = new StringBuilder();
+        int counter = 0;
+
+        for(int i = 0; i < str.length(); i++) {
+            counter++;
+            if (!Character.isWhitespace(str.charAt(i))) {
+                if (str.length() <= i + 1 || str.charAt(i) != str.charAt(i + 1)) {
+                    result.append(str.charAt(i)).append(counter);
+                    counter = 0;
+                }
+            } else {
+                result.append(str.charAt(i));
+                counter = 0;
+            }
+        }
+
+        return result.toString();
+    }
+
+    private static Optional<Integer> tryParseInt(String integer) {
+        try {
+            return Optional.of(Integer.valueOf(integer));
+        } catch (NumberFormatException e) {
+            return Optional.empty();
         }
     }
 }

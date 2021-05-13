@@ -84,4 +84,18 @@ public class StringChallengesTest {
         // Assert
         assertThat(result).isEqualTo(strings.getValue2());
     }
+
+    @Test
+    @DisplayName("Should count consecutive letters from a to z")
+    public void testShrinkString() {
+        // Arrange
+        String testString = "aaa   bccd ddd a";
+        String expected = "a3   b1c2d1 d3 a1";
+
+        // Act
+        String result = StringChallenges.shrinkString(testString);
+
+        // Assert
+        assertThat(result).isEqualTo(expected);
+    }
 }
